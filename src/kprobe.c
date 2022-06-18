@@ -4,7 +4,7 @@ BPF_HASH(start);
 BPF_HASH(total);
 // BPF_HISTOGRAM(dist);
 
-int stdio_in(void *ctx) {
+int timer_start(void *ctx) {
     u64 pid, tm;
 
     pid = bpf_get_current_pid_tgid();
@@ -14,14 +14,14 @@ int stdio_in(void *ctx) {
     return 0;
 }
 
-int stdio_out(void *ctx) {
+int timer_stop(void *ctx) {
     u64 pid, *tm, duration;
  
     pid = bpf_get_current_pid_tgid();
     tm = start.lookup(&pid);
 
     if(tm){
-      duration = (bpf_ktime_get_ns() - *tm) / 1000;
+      duration = bpf_ktime_get_ns() - *tm;
       u64 zero = 0;
       u64 *targetPid = start.lookup(&zero);
       

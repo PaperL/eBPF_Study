@@ -7,11 +7,11 @@
 
 #define BUFFER_SIZE 4096
 
-#define TEST_TIME 100000
+#define TEST_TIME 1000000
 #define TEST_BLOCK_SIZE 128
 
 int main() {
-    printf("PID: %d\n", getpid());
+    printf("PID: %d\nEnter to start", getpid());
 
     getchar();
 
