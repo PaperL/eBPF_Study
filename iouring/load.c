@@ -7,11 +7,12 @@
 
 #define BUFFER_SIZE 4096
 
-#define TEST_TIME 100
+#define TEST_TIME 100000
 #define TEST_BLOCK_SIZE 128
 
 int main() {
     printf("PID: %d\n", getpid());
+
     getchar();
 
     const char* fileName = "temp";
@@ -24,6 +25,7 @@ int main() {
         buffer[i] = ((i ^ 12345) >> 2) ^ ((i ^ 98765) << 6);
 
     for (int i = 0; i < TEST_TIME; i++) {
+//    while(1) {
         lseek(fd, 0, SEEK_SET);
         write(fd, buffer, BUFFER_SIZE);
         lseek(fd, 0, SEEK_SET);
